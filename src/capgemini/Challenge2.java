@@ -18,9 +18,12 @@ public class Challenge2 {
 
     public static void passwordValidator(String password) {
         boolean isSecurePassword = true;
+        int anchor = 0;
 
         if (password == null || password.length() < 6) {
             System.out.println("A senha deve possuir no mínimo 6 caracteres.");
+            anchor = 6 - password.length();
+            isSecurePassword = false;
         }
 
         String oneDigitRegex = "(.*\\d.*)";
@@ -53,6 +56,7 @@ public class Challenge2 {
             System.out.println("Sua senha é segura! Parabéns :D");            
         } else {
             System.out.println("Sua senha é insegura. Faça os devidos ajustes e tente novamente!");
+            System.out.println(anchor);
         }
     }
 

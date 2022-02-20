@@ -1,5 +1,7 @@
 package capgemini;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -7,32 +9,47 @@ import java.util.Scanner;
  * @author Anderson
  */
 public class Challenge3 {
-    public static boolean isAnagram(String firstWord, String secondWord){
-        if ("".equals(firstWord) || "".equals(secondWord)){
-            return false;
+    public static void isAnagram(String word){
+        if ("".equals(word)){
+            return;
         }
         
-        String loweredFirstWord = firstWord.toLowerCase();
-        String loweredSecondWord = secondWord.toLowerCase();
+        String loweredWord = word.toLowerCase();
+        
+        int pairs = -1;
+        String pair = "";
+        List<String> list = new ArrayList<>();
+        for (int index = 0; index < word.length(); index++) {
+            pair = "" + loweredWord.charAt(index);
+            if (!list.contains(pair)) {
+                list.add(pair);
+            }
+            for (int index2 = index + 1; index2 < word.length(); index2++) {
+                pair = pair + loweredWord.charAt(index2);
+                if (!list.contains(pair)) {
+                    list.add(pair);
+                }
+            }
+        }
+        
+        for (int index = 0; index < word.length(); index++) {
+            String reversedWord = list.get(index);
+            if (list.contains(reversedWord)) {
+                pairs++;
+            }
+        }
 
-        
-        if (loweredFirstWord.equals(loweredSecondWord)){
-            return true;
-        }
-        
-        String reversedWord = new StringBuilder(loweredSecondWord).reverse().toString();
-        
-        return loweredFirstWord.equals(reversedWord);
+        System.out.println(list);
+        System.out.println(pairs);
+
     }
     
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         
-        System.out.print("Digite a primeira palavra: ");
-        String firstWord = input.next();
-        System.out.print("Digite a segunda palavra: ");
-        String secondWord = input.next();
+        System.out.print("Digite a palavra: ");
+        String word = input.next();
         
-        System.out.println(isAnagram(firstWord, secondWord));
+        isAnagram(word);
     }
 }
